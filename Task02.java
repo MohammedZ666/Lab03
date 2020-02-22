@@ -1,4 +1,15 @@
-package Lab003;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package lab03;
+
+/**
+ *
+ * @author 18201214
+ */
 
 import java.io.File; 
 import java.io.FileNotFoundException;
@@ -27,14 +38,14 @@ public static void main(String[] args) throws FileNotFoundException
         }         
      
       
-BFS(adjMat,1);
+BFS(adjMat,0);
 } 
 
 public static void BFS(int[][]G , int s){
 	/*colors will be white, parent will be zero and  by default, 
 	so skipping those*/
 	int[] colors = new int[G[0].length];
-	Object[] parent = new Object[G[0].length];
+	int[] parent = new int[G[0].length];
 	
 	int []distance = new int[G[0].length];
 	for(int i = 1;i<G[0].length;i++)distance[i] = 0;
@@ -42,7 +53,7 @@ public static void BFS(int[][]G , int s){
 		
 	colors[s] = GRAY;
 	distance[s] = 0;
-	parent[s] = null;
+	parent[s] = s;
 	
 	Queue <Integer>Q = new LinkedList<Integer>();
 	Q.add(s);
@@ -65,11 +76,18 @@ public static void BFS(int[][]G , int s){
 	}
 	
 	
-for(int color:colors)System.out.print(color+",");
-        System.out.println();	
-for(int d:distance)System.out.print(d+", ");
-        System.out.println();	
+for(int v = 0; v<distance.length; v++){
+    int c =v +1;
+    System.out.println("Node: "+ c +" distance from source-"+distance[v]+ " path: -->"+getPath(v, parent,s));
+}
+}
 
-for(Object p:parent)System.out.print(p+",");
+
+public static String getPath(int v, int [] parent, int source){
+    
+    if(v == source) return (source+1)+"";
+    
+    return getPath(parent[v],parent,source) +"," + (v+1);
+
 }
 }
